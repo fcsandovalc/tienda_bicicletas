@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended: true}))
 
 app.use(express.static(path.join(__dirname, "public")))
 
-let biciletas = [
+let bicicletas = [
     { id: 1, marca: "Trek", modelo: "jaja1", precio: 900, disponible: true},
     { id: 2, marca: "Giant", modelo: "C4", precio: 800, disponible: true},
     { id: 3, marca: "Trek", modelo: "Abc3", precio: 1200, disponible: false}  
@@ -26,6 +26,10 @@ let biciletas = [
 
 app.get("/", (req, res) => {
     res.render('formularios', {titulo: "Gestion de Bicicletas"})
+})
+
+app.get("/bicicletas", (req, res) => {
+    res.render("bicicletas", {titulo: "Listado de Bicicletas", bicicletas})
 })
 
 app.listen(PORT, ()=> {
