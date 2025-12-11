@@ -1,20 +1,26 @@
 <main class="container my-5 p-5 min-vh-100">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Se ha creado exitosamente!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {{/if}}
     <h1 class="mb-5">{{titulo}}</h1>
     <div class="row">
         {{#each bicicletas as |bicicleta|}}
-            <div class="col-lg-3 mb-5 mx-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{bicicleta.marca}} - {{bicicleta.modelo}}</h5>
-                        <p class="card-text">Precio: {{bicicleta.precio}}</p>
-                        <p class="card-text">Disponible: 
-                            {{#if bicicleta.disponible}} Si
-                            {{else}}No
-                            {{/if}}</p>
-                        <a href="/bicicletas/{{bicicleta.id}}" class="card-link">Ver Detalle</a>
-                    </div>
+        <div class="col-lg-3 mb-5 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{bicicleta.marca}} - {{bicicleta.modelo}}</h5>
+                    <p class="card-text">Precio: {{bicicleta.precio}}</p>
+                    <p class="card-text">Disponible:
+                        {{#if bicicleta.disponible}} Si
+                        {{else}}No
+                        {{/if}}</p>
+                    <a href="/bicicletas/{{bicicleta.id}}" class="card-link">Ver Detalle</a>
                 </div>
             </div>
+        </div>
         {{/each}}
     </div>
-</main> 
+</main>
