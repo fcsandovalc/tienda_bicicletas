@@ -5,7 +5,14 @@ const path = require("path")
 const app = express()
 const PORT = 3000
 
-app.engine("handlebars", exphbs.engine({ partialsDir: 'views/partials' }))
+const helpers = {
+    capitalize: (texto) => {
+        if(!texto) return ''
+        return texto.toLowerCase().split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ')
+    }
+}
+
+app.engine("handlebars", exphbs.engine({ partialsDir: path.join(__dirname,'views/partials'), helpers}))
 app.set("view engine", "handlebars")
 app.set("views", path.join(__dirname, "views"))
 
@@ -48,8 +55,11 @@ app.get("/buscar", (req, res) => {
 
 //generar datos
 app.get("/agregar-get", (req, res) => {
-    const { marca, modelo, precio } = req.query
-    if (marca && modelo && precio) {
+     try {
+        const { marca, modelo, precio } = req.query
+        if (!marca || !modelo || !precio) {
+            return res.status(400).send("Faltan datos para crear la bicicleta")
+        }
         const biciNueva = {
             id: bicicletas.length + 1,
             marca,
@@ -58,8 +68,13 @@ app.get("/agregar-get", (req, res) => {
             disponible: true
         }
         bicicletas.push(biciNueva)
+        console.log(`Bicicleta ${biciNueva.marca} ${biciNueva.modelo}, ha sido creada exitosamente.`)
+
+        res.redirect("/bicicletas?success=true")
+    } catch (error) {
+        console.error("Error al crear la bicicleta", error)
+        res.status(500).send("Error interno del servidor.")
     }
-    res.redirect("/bicicletas")
 })
 
 //para agregar mas cantidad de datos, y enviar datos mas sensibles que no se puede usar el url

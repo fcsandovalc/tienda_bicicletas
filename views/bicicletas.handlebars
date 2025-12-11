@@ -11,7 +11,7 @@
         <div class="col-lg-3 mb-5 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{bicicleta.marca}} - {{bicicleta.modelo}}</h5>
+                    <h5 class="card-title">{{capitalize bicicleta.marca}} - {{capitalize bicicleta.modelo}}</h5>
                     <p class="card-text">Precio: {{bicicleta.precio}}</p>
                     <p class="card-text">Disponible:
                         {{#if bicicleta.disponible}} Si
