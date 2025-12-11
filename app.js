@@ -32,6 +32,27 @@ app.get("/bicicletas", (req, res) => {
     res.render("bicicletas", {titulo: "Listado de Bicicletas", bicicletas})
 })
 
+app.get("/bicicletas/:id", (req, res) => {
+    const bicicleta = bicicletas.find(b => b.id == req.params.id)
+    if(!bicicleta) return res.send("La bicicleta no ha sido encontrada")
+    res.render("bicicleta", {titulo: "Detalle de Bicicleta", bicicleta})
+})
+
+app.get("/agregar-get", (req, res) => {
+    const {marca, modelo, precio} = req.query
+    if(marca && modelo && precio) {
+        const biciNueva = {
+            id: bicicletas.length + 1,
+            marca,
+            modelo,
+            precio: Number(precio),
+            disponible: true
+        }
+        bicicletas.push(biciNueva)
+    }
+    res.redirect("/bicicletas")
+})
+
 app.listen(PORT, ()=> {
     console.log(`Servidor corriendo en http://localhost:${PORT}`)
 })

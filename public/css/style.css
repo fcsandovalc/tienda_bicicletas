@@ -1,0 +1,13 @@
+
+.navbar a {
+    color: white;
+}
+.navbar a:hover{
+  color: yellow;  
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.card a {
+    text-decoration: none;
+}
